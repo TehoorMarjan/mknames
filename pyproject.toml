@@ -1,0 +1,41 @@
+[project]
+name = "mknames"
+version = "0.1.0"
+description = "Generate firstnames and lastnames based on french statistics"
+authors = [
+    {name = "Tehoor Marjan", email = "tehoor.marjan@gmail.com"},
+]
+dependencies = [
+    "click>=8.1.8",
+    "httpx>=0.28.1",
+    "hishel>=0.1.2",
+    "appdirs>=1.4.4",
+    "pandas>=2.2.3",
+    "numpy>=2.2.4",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[project.scripts]
+mknames = "mknames.cli:main"
+
+[tool.pdm]
+distribution = true
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+profile = "black"
+line_length = 79
