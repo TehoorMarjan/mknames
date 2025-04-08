@@ -1,0 +1,45 @@
+# Maintainer: Tehoor Marjan <tehoor.marjan@gmail.com>
+
+pkgname=python-mknames-git
+pkgver=0.1.0.r0.ga0d9119
+pkgrel=1
+pkgdesc="Generate firstnames and lastnames based on french statistics"
+arch=(any)
+url="https://github.com/TehoorMarjan/mknames"
+license=(MIT)
+depends=(
+  python
+  python-click
+  python-hishel
+  python-httpx
+  python-numpy
+  python-pandas
+  python-platformdirs
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-pdm-backend
+  python-pdm-build-locked
+  python-wheel
+)
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=("${pkgname%-git}::git+$url.git")
+md5sums=('SKIP')
+
+pkgver() {
+    cd "${pkgname%-git}"
+    git describe --long --tags | sed 's/^v//;s/-/.r/;s/-/./g'
+}
+
+build() {
+    cd "${pkgname%-git}"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "${pkgname%-git}"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}
