@@ -4,10 +4,10 @@ import hishel
 import httpx
 import numpy as np
 import pandas as pd
-from appdirs import user_cache_dir
+from platformdirs import user_cache_dir
 
 CACHEAPPNAME = "mknames"
-CACHEAPPVENDOR = "TehoorMarjan"
+CACHEAPPAUTHOR = "TehoorMarjan"
 CACHETTL = 259200  # 3 days
 
 
@@ -109,7 +109,7 @@ def mknames(
     occurrences in the database.
     """
     storage = hishel.FileStorage(
-        base_path=user_cache_dir(CACHEAPPNAME, CACHEAPPVENDOR),
+        base_path=user_cache_dir(CACHEAPPNAME, CACHEAPPAUTHOR),
         ttl=0 if no_cache else CACHETTL,
     )
     controller = hishel.Controller(force_cache=(not no_cache))
