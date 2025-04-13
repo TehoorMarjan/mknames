@@ -2,9 +2,7 @@
 name = "mknames"
 version = "0.1.0"
 description = "Generate firstnames and lastnames based on french statistics"
-authors = [
-    {name = "Tehoor Marjan", email = "tehoor.marjan@gmail.com"},
-]
+authors = [{ name = "Tehoor Marjan", email = "tehoor.marjan@gmail.com" }]
 dependencies = [
     "click>=8.1.8",
     "hishel>=0.1.2",
@@ -15,18 +13,18 @@ dependencies = [
 ]
 requires-python = ">=3.12"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 
 [project.scripts]
 mknames = "mknames.cli:main"
-
-[tool.pdm]
-distribution = true
 
 [dependency-groups]
 dev = [
     "black>=25.1.0",
     "isort>=6.0.1",
+    "ipykernel>=6.29.5",
+    "pyright>=1.1.399",
+    "pandas-stubs>=2.2.3.250308",
 ]
 
 [build-system]
@@ -39,3 +37,11 @@ line-length = 79
 [tool.isort]
 profile = "black"
 line_length = 79
+
+[tool.pdm]
+distribution = true
+
+[tool.pyright]
+# Removed global restrictions to allow file-specific configurations to take effect.
+include = ["src"]
+typeCheckingMode = "strict"
