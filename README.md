@@ -1,6 +1,6 @@
 # mknames
 
-`mknames` is a Python tool for generating first names and last names based on French statistics. It uses data from the INSEE database and other sources to create names with realistic distributions.
+`mknames` is a Python tool for generating first names and last names based on French and USA statistics. It uses data from the INSEE database, USA sources, and other datasets to create names with realistic distributions.
 
 ## Features
 
@@ -8,7 +8,8 @@
 - Specify the number of names to generate.
 - Allow or disallow duplicate names.
 - Use a custom seed for reproducibility.
-- Clear cache for fresh data.
+- Specify the country for name generation (France or USA).
+- Clear the cache if needed.
 
 ## Installation
 
@@ -24,20 +25,29 @@ pip install mknames
 
 ### Basic Usage
 
-Generate 10 boy names and 10 girl names:
+Generate 10 boy names and 10 girl names from France:
 
 ```bash
-mknames -b 10 -g 10
+mknames -b 10 -g 10 -c fra
+```
+
+Generate 5 boy names and 5 girl names from the USA:
+
+```bash
+mknames -b 5 -g 5 -c usa
 ```
 
 ### Options
 
-- `-b, --boys <int>`: Number of boy names to generate.
-- `-g, --girls <int>`: Number of girl names to generate.
-- `-d, --firstname-duplicates`: Allow duplicate first names.
-- `-D, --lastname-duplicates`: Allow duplicate last names.
+- `-b, --boys <int>`: Number of boy names to generate. `[x>=0]`
+- `-g, --girls <int>`: Number of girl names to generate. `[x>=0]`
+- `-c, --country [fra|usa]`: Country code. `[default: fra]`
+- `-d, --firstname-duplicates`: Allow duplicates on first names.
+- `-D, --lastname-duplicates`: Allow duplicates on last names.
 - `-s, --seed <int>`: Use a custom seed for reproducibility.
-- `-c, --no-cache`: Clear cache before generating names.
+- `-N, --no-cache`: Clear cache.
+
+**Note:** The `-c` flag is now used for specifying the country. Use `-N` to clear the cache. Backward compatibility is not maintained.
 
 ### Interactive Mode
 

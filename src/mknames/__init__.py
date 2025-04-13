@@ -1,7 +1,8 @@
-from .names import LastNameGenerator, NameGenerator, mknames
+from .names import mknames
+from .providers import get_provider, list_providers
 
 __all__ = [
     "mknames",
-    "NameGenerator",
-    "LastNameGenerator",
+    "get_provider",
+    "list_providers",
 ]

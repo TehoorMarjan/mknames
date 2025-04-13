@@ -1,6 +1,7 @@
 import click
 
 from .names import mknames
+from .providers import list_providers
 
 BOYCOLOR = "blue"
 GIRLCOLOR = "magenta"
@@ -24,6 +25,14 @@ GIRLCOLOR = "magenta"
     metavar="<int>",
 )
 @click.option(
+    "-c",
+    "--country",
+    default="fra",
+    help="Country code",
+    type=click.Choice(list_providers(), case_sensitive=False),
+    show_default=True,
+)
+@click.option(
     "-d",
     "--firstname-duplicates",
     is_flag=True,
@@ -44,7 +53,7 @@ GIRLCOLOR = "magenta"
     metavar="<int>",
 )
 @click.option(
-    "-c",
+    "-N",
     "--no-cache",
     is_flag=True,
     help="Clear cache.",
@@ -54,6 +63,7 @@ GIRLCOLOR = "magenta"
 def main(
     boys: int,
     girls: int,
+    country: str,
     seed: int | None,
     no_cache: bool,
     firstname_duplicates: bool,
@@ -61,7 +71,7 @@ def main(
 ) -> None:
     """
     Generate firstnames and lastnames picked randomly from the French INSEE
-    database.
+    database or USA's SSA database.
 
     The firstnames and lastnames are generated based on the number of
     occurrences in the database.
@@ -89,7 +99,13 @@ def main(
             )
 
     boysnames, girlsnames = mknames(
-        boys, girls, seed, no_cache, firstname_duplicates, lastname_duplicates
+        boys=boys,
+        girls=girls,
+        country=country,
+        seed=seed,
+        no_cache=no_cache,
+        firstname_duplicates=firstname_duplicates,
+        lastname_duplicates=lastname_duplicates,
     )
 
     for color, it in ((BOYCOLOR, boysnames), (GIRLCOLOR, girlsnames)):
