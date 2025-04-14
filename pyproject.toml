@@ -18,6 +18,10 @@ license = { text = "MIT" }
 [project.scripts]
 mknames = "mknames.cli:main"
 
+[project.optional-dependencies]
+optional = [
+    "numexpr>=2.10.2",
+]
 [dependency-groups]
 dev = [
     "black>=25.1.0",

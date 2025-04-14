@@ -80,9 +80,10 @@ class LastNameGenerator:
                 keep_default_na=False,
             )
             .dropna()
-            .query(f"count > {self.MINOCC}")
-            .sort_values("count", ascending=False)
-            .reset_index(drop=True)
+            .set_index("patronyme")["count"]
+            .loc[lambda x: x  > self.MINOCC]
+            .sort_values(ascending=False)
+            .reset_index()
             .assign(patronyme=lambda df: df["patronyme"].str.title())
         )
         self.nameset = nameset
