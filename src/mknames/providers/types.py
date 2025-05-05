@@ -5,7 +5,7 @@ import httpx
 
 class PClient(Protocol):
     def get(
-        self, url: str, *, follow_redirects: bool = False
+        self, url: str, *, headers: None|dict[str, str] = None, follow_redirects: bool = False
     ) -> httpx.Response: ...
 
 

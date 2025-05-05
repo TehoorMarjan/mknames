@@ -19,6 +19,19 @@ class NameGenerator:
     URL = "https://www.ssa.gov/oact/babynames/names.zip"
     YEAR = 2000
     MINOCC = 1000
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US;q=0.8,en;q=0.5",
+        "DNT": "1",
+        "Sec-GPC": "1",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Priority": "u=0, i",
+    }
 
     def __init__(
         self, seed: int | None = None, client: PClient = httpx
@@ -37,7 +50,7 @@ class NameGenerator:
                                 df = pd.concat([df, ndf], ignore_index=True)
             return df
 
-        usazip = client.get(self.URL)
+        usazip = client.get(self.URL, headers=self.HEADERS)
         usazip.raise_for_status()
         statset = (
             extract_content(usazip.content)
